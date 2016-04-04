@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=0.0.1
+Terminal=false
+NoDisplay=false
+Icon=/opt/Macip-linux-x64/icon.png
+Type=Application
+Categories=Tools;
+Exec=/opt/Macip-linux-x64/Macip
+Name=Macip
+Comment=Macip frontend to TightVNC/TigerVNC
+StartupNotify=true
+Path=/home/vinicius/.macip

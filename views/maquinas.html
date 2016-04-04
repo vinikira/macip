@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-md-8">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#modalMaquina">
+      <span class="glyphicon glyphicon-plus"></span> Adicionar
+    </button>
+  </div>
+  <div class="col-md-4">
+    <div class="input-group">
+      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+      <input class="form-control" type="text" ng-model="pesquisar" placeholder="Pesquisar">
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-striped  table-hover table-bordered" ng-init="listarMaquinas()">
+        <thead>
+          <th>Numero da Mesa</th>
+          <th>Usuário</th>
+          <th>Mac Address</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr dir-paginate="maquina in maquinas | filter: pesquisar | orderBy:'numero' | itemsPerPage: 10">
+            <td>{{maquina.numero}}</td>
+            <td>{{maquina.usuario}}</td>
+            <td>{{maquina.mac}}</td>
+            <td>
+              <button class="btn btn-info btn-sm" ng-click="editar(maquina)">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="hidden-xs">Editar</span>
+              </button>
+              <button class="btn btn-danger btn-sm" ng-click="excluir(maquina)">
+                <span class="glyphicon glyphicon-remove"></span>
+                <span class="hidden-xs">Remover</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Paginação -->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <dir-pagination-controls [max-size="" ] [direction-links="" ] [boundary-links="" ] [on-page-change="" ] [pagination-id="" ] [template-url="" ] [auto-hide="" ]>
+    </dir-pagination-controls>
+  </div>
+</div>
+
+<!-- Modal Cadastro e Edição -->
+<div class="modal fade" id="modalMaquina" tabindex="-1" role="dialog" data-keyboard='false' data-backdrop='static'>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="maquina={}">
+          <span aria-hidden="true">x</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Máquina</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form class="form form-horizontal" name="maqForm" ng-submit="salvar()" novalidate>
+              <!-- TXT NUMERO -->
+              <div class="form-group" ng-class="{'has-error':maqForm.txtNumero.$error.required}">
+                <label for="txtNumero" class="col-sm-2 control-label">Número da Mesa</label>
+                <div class="col-sm-10">
+                  <input type="number" name="txtNumero" id="txtNumero" class="form-control" min="1" ng-model=maquina.numero required>
+                  <p ng-show="maqForm.txtNumero.$error.required" class="text text-danger">
+                    O número da mesa é obrigatório.
+                  </p>
+                </div>
+              </div>
+              <!-- TXT USUARIO -->
+              <div class="form-group">
+                <label for="txtUsuario" class="col-sm-2 control-label">Usuário</label>
+                <div class="col-sm-10">
+                  <input type="text" name="txtUsuario" id="txtUsuario" class="form-control" ng-model=maquina.usuario>
+                </div>
+              </div>
+              <!-- TXT MAC -->
+              <div class="form-group" ng-class="{'has-error':maqForm.txtMac.$error.minlength || maqForm.txtMac.$error.maxlength || maqForm.txtMac.$invalid }">
+                <label for="txtMac" class="col-sm-2 control-label">Mac</label>
+                <div class="col-sm-10">
+                  <input type="text" name="txtMac" id="txtMac" class="form-control" ng-model=maquina.mac placeholder="Exemplo: 00:00:66:F5:5B:8F" ng-maxlength=17 ng-minlength=17 ng-pattern="regexMac">
+                  <p ng-show="maqForm.txtMac.$error.minlength || maqForm.txtMac.$error.maxlength" class="text text-danger">
+                    Um mac address deve ter exatamente 17 caracteres.
+                  </p>
+                  <p ng-show="maqForm.txtMac.$invalid" class="text text-danger">
+                    Insira um mac address válido. <strong>Exemplo: 00:00:66:F5:5B:8F</strong>
+                  </p>
+                </div>
+              </div>
+              <!-- BTN SUBMIT -->
+              <div class="btn-group">
+                <button type="submit" id="btnSalvar" class="btn btn-primary" ng-disabled="maqForm.$invalid">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                  <span class="hidden-xs">Salvar</span>
+                </button>
+                <!-- BTN CANCELAR -->
+                <button type="button" class="btn btn-default" ng-click="maquina = {}" data-dismiss="modal">
+                  <span class="glyphicon glyphicon-remove-circle"></span>
+                  <span class="hidden-xs">Cancelar</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
