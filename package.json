@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron main.js"
+    "start": "electron-packager . macip --platform=win32 --arch=ia32 --version:0.0.2 --asar=true"
   },
   "keywords": [
     "ip",
@@ -34,6 +34,7 @@
     "nosqlite": "^0.2.2"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.37.8"
+    "electron-prebuilt": "^0.37.8",
+    "electron-packager": "*"
   }
 }
