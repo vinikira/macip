@@ -1,4 +1,5 @@
 "use strict";
+
 app.controller("maquinaController", function ($scope, $location, dbService){
   $scope.regexMac = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/;
   $scope.listarMaquinas = function(){

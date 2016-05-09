@@ -1,6 +1,7 @@
 'use strict';
 var holymac = require('holymac');
 var cmd = require('cmd-exec').init();
+
 app.controller("redeController", function($scope, $location, dbService) {
   $scope.escanearRede = function() {
       $("#modalLoad").modal("show");
